@@ -143,10 +143,6 @@ public class Program {
 		panelGK.setBorder(new LineBorder(Color.BLACK, 3, true));
 		panelGK.setVisible(false);
 		
-		panelSessionKey = new JPanel();
-		panelSessionKey.setBorder(new LineBorder(Color.BLACK, 3));
-		panelSessionKey.setVisible(false);
-		
 		panelMDS = new JPanel();
 		panelMDS.setBorder(new LineBorder(Color.BLACK, 3, true));
 		panelMDS.setVisible(false);
@@ -154,6 +150,197 @@ public class Program {
 		panelDS = new JPanel();
 		panelDS.setBorder(new LineBorder(Color.BLACK, 3, true));
 		panelDS.setVisible(false);
+		
+		panelSessionKey = new JPanel();
+		panelSessionKey.setBorder(new LineBorder(Color.BLACK, 3));
+		panelSessionKey.setVisible(false);
+		
+		panelSessionKey.setBackground(Color.DARK_GRAY);
+		panelSessionKey.setBounds(10, 53, 1174, 607);
+		panelSessionKey.setLayout(null);
+		frmDigitalSignature.getContentPane().add(panelSessionKey);
+		
+		JLabel lblSessionKey = new JLabel("Session Key");
+		lblSessionKey.setForeground(Color.ORANGE);
+		lblSessionKey.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
+		lblSessionKey.setBounds(21, 11, 113, 33);
+		panelSessionKey.add(lblSessionKey);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textField.setBorder(new LineBorder(Color.BLACK, 3));
+		textField.setBounds(115, 55, 887, 33);
+		panelSessionKey.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblMessage = new JLabel("Message : ");
+		lblMessage.setForeground(Color.ORANGE);
+		lblMessage.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblMessage.setBounds(21, 55, 113, 33);
+		panelSessionKey.add(lblMessage);
+		
+		JLabel lblKey = new JLabel("KeyAES : ");
+		lblKey.setForeground(Color.ORANGE);
+		lblKey.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblKey.setBounds(589, 187, 113, 33);
+		panelSessionKey.add(lblKey);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textField_1.setBorder(new LineBorder(Color.BLACK, 3));
+		textField_1.setColumns(10);
+		textField_1.setBounds(670, 188, 188, 33);
+		panelSessionKey.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textField_2.setBorder(new LineBorder(Color.BLACK, 3));
+		textField_2.setColumns(10);
+		textField_2.setBounds(230, 100, 628, 33);
+		panelSessionKey.add(textField_2);
+		
+		JLabel lblPublicKey = new JLabel("Public Key for encryp :");
+		lblPublicKey.setForeground(Color.ORANGE);
+		lblPublicKey.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblPublicKey.setBounds(21, 99, 251, 33);
+		panelSessionKey.add(lblPublicKey);
+		
+		JButton btnChooseFile = new JButton("Choose File");
+		btnChooseFile.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnChooseFile.setBorder(new LineBorder(Color.black,3));
+		btnChooseFile.setBackground(Color.LIGHT_GRAY);
+		btnChooseFile.setBounds(868, 99, 134, 35);
+		btnChooseFile.addActionListener(new Action(this, "PubChoose",conn));
+		panelSessionKey.add(btnChooseFile);
+		
+		JButton btnDecryp = new JButton("Decryp");
+		btnDecryp.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnDecryp.setBorder(new LineBorder(Color.black,3));
+		btnDecryp.setBackground(Color.LIGHT_GRAY);
+		btnDecryp.setBounds(1009, 144, 141, 35);
+		btnDecryp.addActionListener(new Action(this,"PriDec",conn));
+		panelSessionKey.add(btnDecryp);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnClear.setBorder(new LineBorder(Color.black,3));
+		btnClear.setBackground(Color.LIGHT_GRAY);
+		btnClear.setBounds(1009, 52, 141, 37);
+		btnClear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textField.setText("");
+			}
+		});
+		panelSessionKey.add(btnClear);
+		
+		JLabel lblOutput = new JLabel("Output");
+		lblOutput.setForeground(Color.ORANGE);
+		lblOutput.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblOutput.setBounds(21, 207, 78, 33);
+		panelSessionKey.add(lblOutput);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 251, 1129, 334);
+		panelSessionKey.add(scrollPane);
+		
+		textArea = new JTextArea();
+		textArea.setBorder(new LineBorder(Color.BLACK, 3));
+		textArea.setLineWrap(true);
+		textArea.setFont(new Font("Cordia New", Font.BOLD, 25));
+		scrollPane.setViewportView(textArea);
+		
+		JButton btnEncryp = new JButton("Encryp");
+		btnEncryp.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnEncryp.setBorder(new LineBorder(Color.black,3));
+		btnEncryp.setBackground(Color.LIGHT_GRAY);
+		btnEncryp.setBounds(868, 186, 134, 35);
+		btnEncryp.addActionListener(new Action(this,"AESEncrypt",conn));
+		panelSessionKey.add(btnEncryp);
+		
+		JButton btnEncryp_1 = new JButton("Encryp");
+		btnEncryp_1.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnEncryp_1.setBorder(new LineBorder(Color.black,3));
+		btnEncryp_1.setBackground(Color.LIGHT_GRAY);
+		btnEncryp_1.setBounds(1009, 98, 141, 35);
+		btnEncryp_1.addActionListener(new Action(this,"PubEnc",conn));
+		panelSessionKey.add(btnEncryp_1);
+		
+		JLabel lblPrivateKey_1 = new JLabel("Private key for decryp :");
+		lblPrivateKey_1.setForeground(Color.ORANGE);
+		lblPrivateKey_1.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblPrivateKey_1.setBounds(21, 144, 251, 33);
+		panelSessionKey.add(lblPrivateKey_1);
+		
+		textField_9 = new JTextField();
+		textField_9.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textField_9.setColumns(10);
+		textField_9.setBorder(new LineBorder(Color.BLACK, 3));
+		textField_9.setBounds(230, 144, 628, 33);
+		panelSessionKey.add(textField_9);
+		
+		JButton button_4 = new JButton("Choose File");
+		button_4.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		button_4.setBorder(new LineBorder(Color.black,3));
+		button_4.setBackground(Color.LIGHT_GRAY);
+		button_4.setBounds(868, 145, 134, 35);
+		button_4.addActionListener(new Action(this,"PriChoose", conn));
+		panelSessionKey.add(button_4);
+		
+		JButton button_6 = new JButton("Decryp");
+		button_6.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		button_6.setBorder(new LineBorder(Color.black,3));
+		button_6.setBackground(Color.LIGHT_GRAY);
+		button_6.setBounds(1009, 187, 141, 35);
+		button_6.addActionListener(new Action(this,"AESDecrypt",conn));
+		panelSessionKey.add(button_6);
+		
+		JButton btnSend = new JButton("Send");
+		btnSend.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		btnSend.setBorder(new LineBorder(Color.black,3));
+		btnSend.setBackground(Color.LIGHT_GRAY);
+		btnSend.setBounds(1009, 9, 141, 37);
+		btnSend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					conn.singFile();
+					conn.writeToFile("MyData/DataForSendSession.txt");
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panelSessionKey.add(btnSend);
+		
+		JLabel lblSenddata = new JLabel("SendData : ");
+		lblSenddata.setForeground(Color.ORANGE);
+		lblSenddata.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblSenddata.setBounds(892, 11, 113, 33);
+		panelSessionKey.add(lblSenddata);
+		
+		textField_12 = new JTextField();
+		textField_12.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textField_12.setColumns(10);
+		textField_12.setBorder(new LineBorder(Color.BLACK, 3));
+		textField_12.setBounds(230, 188, 233, 33);
+		panelSessionKey.add(textField_12);
+		
+		JButton button_11 = new JButton("Choose File");
+		button_11.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		button_11.setBorder(new LineBorder(Color.black,3));
+		button_11.setBackground(Color.LIGHT_GRAY);
+		button_11.setBounds(473, 186, 106, 35);
+		button_11.addActionListener(new Action(this, "ChooseDataForSend", conn));
+		panelSessionKey.add(button_11);
+		
+		JLabel lblFilesend = new JLabel("FileSend : ");
+		lblFilesend.setForeground(Color.ORANGE);
+		lblFilesend.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblFilesend.setBounds(125, 187, 113, 33);
+		panelSessionKey.add(lblFilesend);
 		
 		panelDS.setBackground(Color.DARK_GRAY);
 		panelDS.setBounds(10, 53, 1174, 607);
@@ -254,7 +441,7 @@ public class Program {
 		textArea_1 = new JTextArea();
 		textArea_1.setBorder(new LineBorder(Color.BLACK, 3));
 		textArea_1.setLineWrap(true);
-		textArea_1.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textArea_1.setFont(new Font("Cordia New", Font.BOLD, 25));
 		scrollPane_1.setViewportView(textArea_1);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -263,7 +450,7 @@ public class Program {
 		
 		textArea_2 = new JTextArea();
 		textArea_2.setLineWrap(true);
-		textArea_2.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textArea_2.setFont(new Font("Cordia New", Font.BOLD, 25));
 		textArea_2.setBorder(new LineBorder(Color.BLACK, 3));
 		scrollPane_2.setViewportView(textArea_2);
 		
@@ -383,7 +570,7 @@ public class Program {
 		
 		textArea_3 = new JTextArea();
 		textArea_3.setBorder(new LineBorder(Color.BLACK, 3));
-		textArea_3.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textArea_3.setFont(new Font("Cordia New", Font.BOLD, 25));
 		textArea_3.setLineWrap(true);
 		scrollPane_3.setViewportView(textArea_3);
 		
@@ -452,7 +639,7 @@ public class Program {
 		textArea_4 = new JTextArea();
 		textArea_4.setBorder(new LineBorder(Color.BLACK, 3));
 		textArea_4.setLineWrap(true);
-		textArea_4.setFont(new Font("Cordia New", Font.BOLD, 20));
+		textArea_4.setFont(new Font("Cordia New", Font.BOLD, 25));
 		scrollPane_4.setViewportView(textArea_4);
 		
 		JLabel label_4 = new JLabel("Output");
@@ -460,193 +647,6 @@ public class Program {
 		label_4.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
 		label_4.setBounds(31, 398, 251, 33);
 		panelMDS.add(label_4);
-		
-		panelSessionKey.setBackground(Color.DARK_GRAY);
-		panelSessionKey.setBounds(10, 53, 1174, 607);
-		panelSessionKey.setLayout(null);
-		frmDigitalSignature.getContentPane().add(panelSessionKey);
-		
-		JLabel lblSessionKey = new JLabel("Session Key");
-		lblSessionKey.setForeground(Color.ORANGE);
-		lblSessionKey.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
-		lblSessionKey.setBounds(21, 11, 113, 33);
-		panelSessionKey.add(lblSessionKey);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Cordia New", Font.BOLD, 20));
-		textField.setBorder(new LineBorder(Color.BLACK, 3));
-		textField.setBounds(115, 55, 887, 33);
-		panelSessionKey.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblMessage = new JLabel("Message : ");
-		lblMessage.setForeground(Color.ORANGE);
-		lblMessage.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblMessage.setBounds(21, 55, 113, 33);
-		panelSessionKey.add(lblMessage);
-		
-		JLabel lblKey = new JLabel("KeyAES : ");
-		lblKey.setForeground(Color.ORANGE);
-		lblKey.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblKey.setBounds(589, 187, 113, 33);
-		panelSessionKey.add(lblKey);
-		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Cordia New", Font.BOLD, 20));
-		textField_1.setBorder(new LineBorder(Color.BLACK, 3));
-		textField_1.setColumns(10);
-		textField_1.setBounds(670, 188, 188, 33);
-		panelSessionKey.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Cordia New", Font.BOLD, 20));
-		textField_2.setBorder(new LineBorder(Color.BLACK, 3));
-		textField_2.setColumns(10);
-		textField_2.setBounds(230, 100, 628, 33);
-		panelSessionKey.add(textField_2);
-		
-		JLabel lblPublicKey = new JLabel("Public Key for encryp :");
-		lblPublicKey.setForeground(Color.ORANGE);
-		lblPublicKey.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblPublicKey.setBounds(21, 99, 251, 33);
-		panelSessionKey.add(lblPublicKey);
-		
-		JButton btnChooseFile = new JButton("Choose File");
-		btnChooseFile.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnChooseFile.setBorder(new LineBorder(Color.black,3));
-		btnChooseFile.setBackground(Color.LIGHT_GRAY);
-		btnChooseFile.setBounds(868, 99, 134, 35);
-		btnChooseFile.addActionListener(new Action(this, "PubChoose",conn));
-		panelSessionKey.add(btnChooseFile);
-		
-		JButton btnDecryp = new JButton("Decryp");
-		btnDecryp.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnDecryp.setBorder(new LineBorder(Color.black,3));
-		btnDecryp.setBackground(Color.LIGHT_GRAY);
-		btnDecryp.setBounds(1009, 144, 141, 35);
-		btnDecryp.addActionListener(new Action(this,"PriDec",conn));
-		panelSessionKey.add(btnDecryp);
-		
-		JButton btnClear = new JButton("Clear");
-		btnClear.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnClear.setBorder(new LineBorder(Color.black,3));
-		btnClear.setBackground(Color.LIGHT_GRAY);
-		btnClear.setBounds(1009, 52, 141, 37);
-		btnClear.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				textField.setText("");
-			}
-		});
-		panelSessionKey.add(btnClear);
-		
-		JLabel lblOutput = new JLabel("Output");
-		lblOutput.setForeground(Color.ORANGE);
-		lblOutput.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblOutput.setBounds(21, 207, 78, 33);
-		panelSessionKey.add(lblOutput);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 251, 1129, 334);
-		panelSessionKey.add(scrollPane);
-		
-		textArea = new JTextArea();
-		textArea.setBorder(new LineBorder(Color.BLACK, 3));
-		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Monospaced", Font.BOLD, 20));
-		scrollPane.setViewportView(textArea);
-		
-		JButton btnEncryp = new JButton("Encryp");
-		btnEncryp.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnEncryp.setBorder(new LineBorder(Color.black,3));
-		btnEncryp.setBackground(Color.LIGHT_GRAY);
-		btnEncryp.setBounds(868, 186, 134, 35);
-		btnEncryp.addActionListener(new Action(this,"AESEncrypt",conn));
-		panelSessionKey.add(btnEncryp);
-		
-		JButton btnEncryp_1 = new JButton("Encryp");
-		btnEncryp_1.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnEncryp_1.setBorder(new LineBorder(Color.black,3));
-		btnEncryp_1.setBackground(Color.LIGHT_GRAY);
-		btnEncryp_1.setBounds(1009, 98, 141, 35);
-		btnEncryp_1.addActionListener(new Action(this,"PubEnc",conn));
-		panelSessionKey.add(btnEncryp_1);
-		
-		JLabel lblPrivateKey_1 = new JLabel("Private key for decryp :");
-		lblPrivateKey_1.setForeground(Color.ORANGE);
-		lblPrivateKey_1.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblPrivateKey_1.setBounds(21, 144, 251, 33);
-		panelSessionKey.add(lblPrivateKey_1);
-		
-		textField_9 = new JTextField();
-		textField_9.setFont(new Font("Cordia New", Font.BOLD, 20));
-		textField_9.setColumns(10);
-		textField_9.setBorder(new LineBorder(Color.BLACK, 3));
-		textField_9.setBounds(230, 144, 628, 33);
-		panelSessionKey.add(textField_9);
-		
-		JButton button_4 = new JButton("Choose File");
-		button_4.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		button_4.setBorder(new LineBorder(Color.black,3));
-		button_4.setBackground(Color.LIGHT_GRAY);
-		button_4.setBounds(868, 145, 134, 35);
-		button_4.addActionListener(new Action(this,"PriChoose", conn));
-		panelSessionKey.add(button_4);
-		
-		JButton button_6 = new JButton("Decryp");
-		button_6.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		button_6.setBorder(new LineBorder(Color.black,3));
-		button_6.setBackground(Color.LIGHT_GRAY);
-		button_6.setBounds(1009, 187, 141, 35);
-		button_6.addActionListener(new Action(this,"AESDecrypt",conn));
-		panelSessionKey.add(button_6);
-		
-		JButton btnSend = new JButton("Send");
-		btnSend.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		btnSend.setBorder(new LineBorder(Color.black,3));
-		btnSend.setBackground(Color.LIGHT_GRAY);
-		btnSend.setBounds(1009, 9, 141, 37);
-		btnSend.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					conn.singFile();
-					conn.writeToFile("MyData/DataForSendSession.txt");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		panelSessionKey.add(btnSend);
-		
-		JLabel lblSenddata = new JLabel("SendData : ");
-		lblSenddata.setForeground(Color.ORANGE);
-		lblSenddata.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblSenddata.setBounds(892, 11, 113, 33);
-		panelSessionKey.add(lblSenddata);
-		
-		textField_12 = new JTextField();
-		textField_12.setFont(new Font("Cordia New", Font.BOLD, 20));
-		textField_12.setColumns(10);
-		textField_12.setBorder(new LineBorder(Color.BLACK, 3));
-		textField_12.setBounds(230, 188, 233, 33);
-		panelSessionKey.add(textField_12);
-		
-		JButton button_11 = new JButton("Choose File");
-		button_11.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		button_11.setBorder(new LineBorder(Color.black,3));
-		button_11.setBackground(Color.LIGHT_GRAY);
-		button_11.setBounds(473, 186, 106, 35);
-		button_11.addActionListener(new Action(this, "ChooseDataForSend", conn));
-		panelSessionKey.add(button_11);
-		
-		JLabel lblFilesend = new JLabel("FileSend : ");
-		lblFilesend.setForeground(Color.ORANGE);
-		lblFilesend.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblFilesend.setBounds(125, 187, 113, 33);
-		panelSessionKey.add(lblFilesend);
 		panelGK.setLayout(null);
 		
 		
