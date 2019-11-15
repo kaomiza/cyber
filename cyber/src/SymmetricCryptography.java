@@ -1,10 +1,15 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Base64;
@@ -12,12 +17,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.JOptionPane;
 
 public class SymmetricCryptography {
 	
@@ -84,11 +93,9 @@ public class SymmetricCryptography {
 		setkey(secret);
 		String cypher = encrypt(plaintext, secret ,keybit);
 		setEncypher(cypher);
-		System.out.println(cypher);
 	}
 
 	public String defile(String secret, String cypher) throws Exception {
-		System.out.println(cypher + "\n" + secret);
 		String text = decrypt(cypher, secret , keybit);
 		return text;
 	}
@@ -103,7 +110,6 @@ public class SymmetricCryptography {
 
 	public String readfile(String filename) throws IOException {
 		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
-		System.out.println(new File(filename).toPath());
 		return Base64.getEncoder().encodeToString(keyBytes);
 	}
 
@@ -142,7 +148,6 @@ public class SymmetricCryptography {
 
 	public static String decrypt(String strToDecrypt, String secret, int bit) throws Exception {
 		String salt = "ssshhhhhhhhhhh!!!!";
-		System.out.println(bit);
 		try {
 			byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			IvParameterSpec ivspec = new IvParameterSpec(iv);
@@ -155,12 +160,88 @@ public class SymmetricCryptography {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
 			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
+			
 			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt.getBytes("UTF-8"))));
 
 		} catch (Exception e) {
 			System.out.println("Error while decrypting: " + e.toString());
 		}
 		return null;
+	}
+	
+	public byte[] decryptSing(String strToDecrypt, String secret, int bit) throws Exception {
+		String salt = "ssshhhhhhhhhhh!!!!";
+		try {
+			byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			IvParameterSpec ivspec = new IvParameterSpec(iv);
+
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+			KeySpec spec = new PBEKeySpec(secret.toCharArray(), salt.getBytes(), 65536, bit);
+			SecretKey tmp = factory.generateSecret(spec);
+
+			SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+
+			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
+			byte[] re = cipher.doFinal(Base64.getDecoder().decode(strToDecrypt.getBytes("UTF-8")));
+			String s = new String(re);
+			System.out.println(s);
+			return re;
+
+		} catch (Exception e) {
+			System.out.println("Error while decrypting: " + e.toString());
+		}
+		return null;
+	}
+	
+	public boolean fileProcessor(int cipherMode, String key, File inputFile, File outputFile, int bit)
+			throws InvalidKeySpecException, InvalidAlgorithmParameterException {
+		try {
+			if (key.isEmpty()) {
+				JOptionPane.showMessageDialog(null,
+					    "Please enter key AES.",
+					    "Warning",
+					    JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+//			Key secretKey = new SecretKeySpec(key.getBytes(), "AES");
+			byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			IvParameterSpec ivspec = new IvParameterSpec(iv);
+			
+			String salt = "ssshhhhhhhhhhh!!!!";
+			
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+			KeySpec spec = new PBEKeySpec(key.toCharArray(), salt.getBytes(), 65536, bit);
+			SecretKey tmp = factory.generateSecret(spec);
+			
+			SecretKeySpec secretKeyz = new SecretKeySpec(tmp.getEncoded(), "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+			cipher.init(cipherMode, secretKeyz,ivspec);
+			
+			FileInputStream inputStream = new FileInputStream(inputFile);
+			byte[] inputBytes = new byte[(int) inputFile.length()];			
+			inputStream.read(inputBytes);
+			
+			System.out.println(Base64.getEncoder().encodeToString(cipher.doFinal(inputBytes)));
+
+			byte[] outputBytes = cipher.doFinal(inputBytes);
+
+			FileOutputStream outputStream = new FileOutputStream(outputFile);
+			outputStream.write(outputBytes);
+
+			inputStream.close();
+			outputStream.close();
+			return true;
+
+		} catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException
+				| IllegalBlockSizeException | IOException e) {
+			JOptionPane.showMessageDialog(null,
+				    "Key or Key Size is not correct.",
+				    "ERROR !!!",
+				    JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

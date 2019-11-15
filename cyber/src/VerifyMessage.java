@@ -47,7 +47,6 @@ public class VerifyMessage {
 		Signature sig = Signature.getInstance("SHA256withRSA");
 		sig.initVerify(getPublic(keyFile));
 		sig.update(data);
-		
 		return sig.verify(signature);
 	}
 	

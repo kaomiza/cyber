@@ -6,15 +6,24 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class convertion {
 	private List<byte[]> list = new ArrayList<byte[]>();
 	static public String AESCypher;
 	static public String RSACypher;
+	static public byte[] SignedEncrypted;
 	
 	public void singFile() {
+		list.removeAll(Collections.singleton(null));
 		list.add(AESCypher.getBytes());
+		list.add(RSACypher.getBytes());
+	}
+	
+	public void singToFileMD() {
+		list.removeAll(Collections.singleton(null));
+		list.add(SignedEncrypted);
 		list.add(RSACypher.getBytes());
 	}
 	
@@ -53,5 +62,18 @@ public class convertion {
 	public void setRSACypher(String rSACypher) {
 		RSACypher = rSACypher;
 	}
+
+	public byte[] getSignedEncrypted() {
+		return SignedEncrypted;
+	}
+
+	public void setSignedEncrypted(byte[] signedEncrypted) {
+		SignedEncrypted = signedEncrypted;
+	}
+	
+	
+
+
+	
 
 }
